@@ -11,12 +11,9 @@ var config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
+  baseUrl: 'http://localhost:' + (process.env.PORT || '9001'),
 
-  // Credientials for Saucelabs
-  sauceUser: process.env.SAUCE_USERNAME,
-
-  sauceKey: process.env.SAUCE_ACCESS_KEY,
+  directConnect: true,
 
   // list of files / patterns to load in the browser
   specs: [
@@ -35,8 +32,9 @@ var config = {
   capabilities: {
     'browserName': 'chrome',
     'name': 'Fullstack E2E',
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-    'build': process.env.TRAVIS_BUILD_NUMBER
+    'chromeOptions': {
+      'args': ['show-fps-counter=true']
+    },
   },
 
   // ----- The test framework -----
@@ -44,13 +42,14 @@ var config = {
   // Jasmine and Cucumber are fully supported as a test and assertion framework.
   // Mocha has limited beta support. You will need to include your own
   // assertion framework if working with mocha.
-  framework: 'mocha',
+  framework: 'jasmine2',
 
-  // ----- Options to be passed to mocha -----
-  mochaOpts: {
-    reporter: 'spec',
-    timeout: 30000,
-    defaultTimeoutInterval: 30000
+  // ----- Options to be passed to minijasminenode -----
+  //
+  // See the full list at https://github.com/jasmine/jasmine-npm
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 30000,
+    print: function() {}  // for jasmine-spec-reporter
   },
 
   // Prepare environment for tests
@@ -60,15 +59,16 @@ var config = {
 
   onPrepare: function() {
     require('babel-register');
-    // Load Mocha and Chai + plugins
-    require('./mocha.conf');
-
-    // Expose should assertions (see https://github.com/angular/protractor/issues/633)
-    Object.defineProperty(
-      protractor.promise.Promise.prototype,
-      'should',
-      Object.getOwnPropertyDescriptor(Object.prototype, 'should')
-    );
+    var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+    // add jasmine spec reporter
+    jasmine.getEnv().addReporter(new SpecReporter({
+      spec: {
+        displayStacktrace: true
+      },
+      summary: {
+        displayStacktrace: true
+      }
+    }));
 
     var serverConfig = config.params.serverConfig;
 

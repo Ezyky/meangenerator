@@ -9,14 +9,23 @@
       </button>
       <a href="/" class="navbar-brand">test-mean-generate</a>
     </div>
-    <div  class="navbar-collapse collapse" id="navbar-main">
+    <div [collapse]="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li *ngFor="let item of menu" routerLinkActive="active">
             <a routerLink="{{item.link}}">{{item.title}}</a>
         </li>
-
+        <li [hidden]="!isAdmin" routerLinkActive="active">
+          <a routerLink="/admin">Admin</a>
+        </li>
       </ul>
 
+      <ul class="nav navbar-nav navbar-right">
+        <li [hidden]="isLoggedIn" routerLinkActive="active"><a routerLink="/signup">Sign up</a></li>
+        <li [hidden]="isLoggedIn" routerLinkActive="active"><a routerLink="/login">Login</a></li>
+        <li [hidden]="!isLoggedIn"><p class="navbar-text">Hello {{ currentUser.name }}</p> </li>
+        <li [hidden]="!isLoggedIn" routerLinkActive="active"><a routerLink="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li [hidden]="!isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Log out</a></li>
+      </ul>
     </div>
   </div>
 </div>

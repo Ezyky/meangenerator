@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { RouterModule, Routes } from '@angular/router';
 
+import { TooltipModule } from 'ngx-bootstrap';
 
 import { MainComponent } from './main.component';
 
@@ -21,6 +22,7 @@ export const ROUTES: Routes = [
         RouterModule.forChild(ROUTES),
 
 
+        TooltipModule.forRoot(),
     ],
     declarations: [
         MainComponent,

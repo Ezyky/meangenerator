@@ -24,6 +24,8 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { DirectivesModule } from '../components/directives.module';
+import { AccountModule } from './account/account.module';
+import { AdminModule } from './admin/admin.module';
 
 import constants from './app.constants';
 
@@ -44,7 +46,7 @@ let providers: Provider[] = [{
 if(constants.env === 'development') {
     @Injectable()
     class HttpOptions extends BaseRequestOptions {
-        merge(options: RequestOptionsArgs):RequestOptions {
+        merge(options: RequestOptionsArgs): RequestOptions {
             options.url = `http://localhost:9000${options.url}`;
             return super.merge(options);
         }
@@ -67,6 +69,8 @@ const appRoutes: Routes = [{ path: '',
         RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),
         MainModule,
         DirectivesModule,
+        AccountModule,
+        AdminModule,
     ],
     declarations: [
         AppComponent,

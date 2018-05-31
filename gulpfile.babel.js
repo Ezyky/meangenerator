@@ -1,4 +1,4 @@
-// Generated on 2018-05-30 using generator-angular-fullstack 5.0.0-beta.3
+// Generated on 2018-05-31 using generator-angular-fullstack 5.0.0-rc.1
 'use strict';
 
 import _ from 'lodash';
@@ -35,7 +35,7 @@ const paths = {
         styles: [`${clientPath}/{app,components}/**/*.css`],
         mainStyle: `${clientPath}/app/app.css`,
         views: `${clientPath}/{app,components}/**/*.html`,
-        mainView: `${clientPath}/index.html`,
+        mainView: `${clientPath}/app.html`,
         test: [`${clientPath}/{app,components}/**/*.{spec,mock}.ts`],
         e2e: ['e2e/**/*.spec.js']
     },
@@ -289,17 +289,11 @@ gulp.task('start:server:prod', () => {
         .on('log', onServerLog);
 });
 
-gulp.task('start:inspector', () => {
-    gulp.src([])
-        .pipe(plugins.nodeInspector({
-          debugPort: 5858
-        }));
-});
-
 gulp.task('start:server:debug', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
     config = require(`./${serverPath}/config/environment`);
-    nodemon(`-w ${serverPath} --debug=5858 --debug-brk ${serverPath}`)
+    // nodemon(`-w ${serverPath} --debug=5858 --debug-brk ${serverPath}`)
+    nodemon(`-w ${serverPath} --inspect --debug-brk ${serverPath}`)
         .on('log', onServerLog);
 });
 
@@ -341,7 +335,6 @@ gulp.task('serve:debug', cb => {
             'env:all'
         ],
         'webpack:dev',
-        'start:inspector',
         ['start:server:debug', 'start:client'],
         'watch',
         cb
@@ -497,7 +490,7 @@ gulp.task('copy:extras', () => {
 });
 
 /**
- * turns 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
+ * turns 'bootstrap/fonts/font.woff' into 'bootstrap/font.woff'
  */
 function flatten() {
     return through2.obj(function(file, enc, next) {

@@ -82,7 +82,7 @@
         "no-octal-escape": 0,                                       //disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
         "no-octal": 0,                                              //disallow use of octal literals
         "no-param-reassign": 0,                                     //disallow reassignment of function parameters
-        "no-process-env": 1,                                        //disallow use of process.env
+        "no-process-env": 0,                                        //disallow use of process.env
         "no-proto": 2,                                              //disallow usage of __proto__ property
         "no-redeclare": 2,                                          //disallow declaring the same variable more than once
         "no-return-assign": 2,                                      //disallow use of assignment in return statement
@@ -149,7 +149,7 @@
         "id-blacklist": 0,                                          //blacklist certain identifiers to prevent them being used
         "id-length": 0,                                             //this option enforces minimum and maximum identifier lengths (variable names, property names etc.)
         "id-match": 0,                                              //require identifiers to match the provided regular expression
-        "indent": ["error", 2],                                     //specify tab or space width for your code
+        "indent": ["warn", 4],                                      //specify tab or space width for your code
         "jsx-quotes": 0,                                            //specify whether double or single quotes should be used in JSX attributes
         "key-spacing": 2,                                           //enforce spacing between keys and values in object literal properties
         "keyword-spacing": [2, {

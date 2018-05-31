@@ -14,7 +14,8 @@ import {
     ResponseOptions,
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { expect } from 'chai';
+
+import { TooltipModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
 
@@ -26,6 +27,7 @@ describe('Component: MainComponent', function() {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule,
+                TooltipModule.forRoot(),
                 HttpModule,
             ],
             declarations: [ MainComponent ], // declare the test component
@@ -63,6 +65,6 @@ describe('Component: MainComponent', function() {
     }));
 
     it('should attach a list of things to the controller', () => {
-        expect(comp.awesomeThings.length).to.equal(4);
+        expect(comp.awesomeThings.length).toEqual(4);
     });
 });

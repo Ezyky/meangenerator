@@ -5,10 +5,10 @@
 // ==================================
 module.exports = {
     // MongoDB connection options
-  mongo: {
-    uri: 'mongodb://localhost/testmeangenerate-dev'
-  },
+    mongo: {
+        uri: 'mongodb://localhost/testmeangenerate-dev'
+    },
 
     // Seed database on startup
-  seedDB: true
+    seedDB: true
 };
